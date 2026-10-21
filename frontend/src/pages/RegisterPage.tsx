@@ -1,0 +1,134 @@
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Code2, Lock, Mail, Loader2, AlertCircle } from 'lucide-react';
+import { useAuth } from '../features/auth/AuthContext';
+
+export const RegisterPage: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { register } = useAuth();
+  const navigate = useNavigate();
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await register(email, password);
+      navigate('/');
+    } catch (err: any) {
+      console.error('Registration failed:', err);
+      setError(err.response?.data?.message || err.message || 'Registration failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0d1117] flex flex-col justify-center items-center px-4 select-none">
+      <div className="w-full max-w-sm space-y-6">
+        {/* Brand */}
+        <div className="text-center space-y-2">
+          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto">
+            <Code2 className="w-6 h-6" />
+          </div>
+          <h1 className="text-xl font-bold text-white tracking-tight">Create your RepoSage Account</h1>
+          <p className="text-xs text-[#8b949e]">Full codebase navigation, search, and AI debugging</p>
+        </div>
+
+        {/* Card */}
+        <div className="rounded-2xl border border-[#30363d] bg-[#161b22] p-6 shadow-xl space-y-4">
+          {error && (
+            <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-xs text-rose-400 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleRegister} className="space-y-4">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#8b949e] mb-1.5">
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-[#8b949e] absolute left-3 top-3" />
+                <input
+                  type="email"
+                  required
+                  placeholder="name@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-[#0d1117] text-xs text-[#c9d1d9] pl-9 pr-3.5 py-2.5 rounded-lg border border-[#30363d] focus:border-emerald-500/50 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#8b949e] mb-1.5">
+                Password (min 8 chars)
+              </label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-[#8b949e] absolute left-3 top-3" />
+                <input
+                  type="password"
+                  required
+                  minLength={8}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-[#0d1117] text-xs text-[#c9d1d9] pl-9 pr-3.5 py-2.5 rounded-lg border border-[#30363d] focus:border-emerald-500/50 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#8b949e] mb-1.5">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-[#8b949e] absolute left-3 top-3" />
+                <input
+                  type="password"
+                  required
+                  minLength={8}
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full bg-[#0d1117] text-xs text-[#c9d1d9] pl-9 pr-3.5 py-2.5 rounded-lg border border-[#30363d] focus:border-emerald-500/50 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-black font-semibold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm"
+            >
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Create Account'}
+            </button>
+          </form>
+        </div>
+
+        <p className="text-center text-xs text-[#8b949e]">
+          Already have an account?{' '}
+          <Link to="/login" className="text-emerald-400 hover:underline font-medium">
+            Sign In
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
