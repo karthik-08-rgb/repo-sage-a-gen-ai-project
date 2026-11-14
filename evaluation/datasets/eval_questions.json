@@ -1,0 +1,37 @@
+[
+  {
+    "id": "eval_01",
+    "question": "Where is user authentication and JWT password verification implemented?",
+    "target_files": ["app/services/auth/auth_service.py", "app/core/security.py"],
+    "target_symbol": "authenticate_user",
+    "category": "security"
+  },
+  {
+    "id": "eval_02",
+    "question": "How does RepoSage protect against Zip Slip and archive bomb attacks during repository uploads?",
+    "target_files": ["app/services/repository/zip_validator.py"],
+    "target_symbol": "extract_zip_safely",
+    "category": "security"
+  },
+  {
+    "id": "eval_03",
+    "question": "Explain how hybrid retrieval combines vector similarity and keyword search using Reciprocal Rank Fusion.",
+    "target_files": ["app/services/retrieval/retriever.py"],
+    "target_symbol": "_hybrid_search",
+    "category": "retrieval"
+  },
+  {
+    "id": "eval_04",
+    "question": "Where are code-aware chunking and function line boundaries extracted?",
+    "target_files": ["app/services/chunking/code_chunker.py", "app/services/parsing/parser.py"],
+    "target_symbol": "chunk_file",
+    "category": "chunking"
+  },
+  {
+    "id": "eval_05",
+    "question": "Which service handles parsing stack traces and synthesizing root cause analysis for errors?",
+    "target_files": ["app/services/debugging/debugger.py"],
+    "target_symbol": "analyze_error",
+    "category": "debugging"
+  }
+]

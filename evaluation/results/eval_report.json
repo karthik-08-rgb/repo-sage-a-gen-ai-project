@@ -1,0 +1,82 @@
+{
+  "benchmark_timestamp": "2026-11-25T10:45:25Z",
+  "total_questions": 5,
+  "mean_reciprocal_rank_mrr": 0.7,
+  "recall_at_3": 0.8,
+  "average_retrieval_latency_ms": 144.27,
+  "citation_accuracy_rate": 0.4,
+  "question_details": [
+    {
+      "id": "eval_01",
+      "question": "Where is user authentication and JWT password verification implemented?",
+      "target_files": [
+        "app/services/auth/auth_service.py",
+        "app/core/security.py"
+      ],
+      "target_symbol": "authenticate_user",
+      "hit_rank": 2,
+      "reciprocal_rank": 0.5,
+      "recall@3": 1,
+      "retrieval_latency_ms": 167.58,
+      "rag_latency_ms": 206.21,
+      "citation_accuracy": 0.5
+    },
+    {
+      "id": "eval_02",
+      "question": "How does RepoSage protect against Zip Slip and archive bomb attacks during repository uploads?",
+      "target_files": [
+        "app/services/repository/zip_validator.py"
+      ],
+      "target_symbol": "extract_zip_safely",
+      "hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "recall@3": 1,
+      "retrieval_latency_ms": 131.45,
+      "rag_latency_ms": 239.47,
+      "citation_accuracy": 0.5
+    },
+    {
+      "id": "eval_03",
+      "question": "Explain how hybrid retrieval combines vector similarity and keyword search using Reciprocal Rank Fusion.",
+      "target_files": [
+        "app/services/retrieval/retriever.py"
+      ],
+      "target_symbol": "_hybrid_search",
+      "hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "recall@3": 1,
+      "retrieval_latency_ms": 160.74,
+      "rag_latency_ms": 186.86,
+      "citation_accuracy": 0.5
+    },
+    {
+      "id": "eval_04",
+      "question": "Where are code-aware chunking and function line boundaries extracted?",
+      "target_files": [
+        "app/services/chunking/code_chunker.py",
+        "app/services/parsing/parser.py"
+      ],
+      "target_symbol": "chunk_file",
+      "hit_rank": 1,
+      "reciprocal_rank": 1.0,
+      "recall@3": 1,
+      "retrieval_latency_ms": 127.04,
+      "rag_latency_ms": 146.81,
+      "citation_accuracy": 0.5
+    },
+    {
+      "id": "eval_05",
+      "question": "Which service handles parsing stack traces and synthesizing root cause analysis for errors?",
+      "target_files": [
+        "app/services/debugging/debugger.py"
+      ],
+      "target_symbol": "analyze_error",
+      "hit_rank": -1,
+      "reciprocal_rank": 0.0,
+      "recall@3": 0,
+      "retrieval_latency_ms": 134.54,
+      "rag_latency_ms": 309.11,
+      "citation_accuracy": 0.0
+    }
+  ]
+}
